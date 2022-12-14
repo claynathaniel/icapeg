@@ -1,0 +1,40 @@
+version: "3"
+services:
+  icapeg:
+    build: ../docker-compose.yaml
+    networks: { internal }
+    ports:
+      - "1344:1344"
+    depends_on:
+      - samba-ad
+      - squid-proxy
+  samba-ad:
+    build: ./samba-ad/docker-compose.yml
+    networks: { external, internal }
+    ports:
+      - "53:53"
+      - "53:53/udp"
+      - "88:88"
+      - "88:88/udp"
+      - "135:135"
+      - "137-138:137-138/udp"
+      - "139:139"
+      - "389:389"
+      - "389:389/udp"
+      - "445:445"
+      - "464:464"
+      - "464:464/udp"
+      - "636:636"
+      - "3268-3269:3268-3269"
+      - "49152-65535"
+  squid-proxy:
+    build:  ./squid-proxy/docker-compose.yml
+    networks: { external, internal }
+
+networks:
+  external:
+    external: true
+  internal:
+    external: false
+
+
