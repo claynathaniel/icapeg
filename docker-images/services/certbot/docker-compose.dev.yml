@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  build: .
+  secrets:
+    - config
+secrets:
+  config:
+    file: var/config.dev.ini

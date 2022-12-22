@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/sh -e
 
-set -e
 
 CHOWN=$(/usr/bin/which chown)
 SQUID=$(/usr/bin/which squid)
@@ -55,7 +54,10 @@ run() {
 	create_cert
 	clear_certs_db
 	initialize_cache
-	exec "$SQUID" -NYCd 1 -f /etc/squid/squid.conf
+	#exec "$SQUID" --forground -YCd 1 -f /etc/squid/squid.conf
+	rc-service squid start
+	rc-update add squid
+	squid -k check
 }
 
 run

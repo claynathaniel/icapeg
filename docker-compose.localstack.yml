@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  localstack:
+      image: localstack/localstack
+networks:
+  default:
+    external:
+      name: localstack

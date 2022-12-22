@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  # usage: docker-compose run --rm awscli dynamodb [operation]
+  awscli:
+    image: amazon/aws-cli
+    entrypoint: aws --endpoint-url http://localstack:4566
+    command: --version
+    environment:
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
+      AWS_REGION: us-east-1
+networks:
+  default:
+    external:
+        name: "localstack"
